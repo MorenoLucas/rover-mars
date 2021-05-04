@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HelperService } from '../services/helper.service';
-import { Commands } from '../interface/commands';
+import { Commands, Coordinates } from '../interface/commands';
 import { Square } from '../interface/square';
 
 @Component({
@@ -14,12 +14,19 @@ export class HomePage {
   movimientos = [];
 
   constructor(private helper: HelperService) {
-    this.cuadrado.yHeight = 10;
-    this.cuadrado.xWidth = 10;
-    this.comandos.direction = 'A';
-    this.comandos.orientation = 'N';
-    this.comandos.coordinates.yHeight = 0;
-    this.comandos.coordinates.xWidth = 0;
+    this.cuadrado = {
+      width: 10,
+      height: 10,
+    };
+    this.comandos = {
+      direction: 'A',
+      orientation: 'N',
+      coordinates: {
+        yHeight: 0,
+        xWidth: 0,
+      },
+    };
+
     this.movimientos.push('A');
     this.movimientos.push('R');
     this.movimientos.push('A');

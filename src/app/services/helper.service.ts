@@ -9,8 +9,8 @@ export class HelperService {
   // This method will check if the coordinates given are inside the square
 
   checkIfInsideSquare(square: Square, coordinates: Coordinates): boolean {
-    const maxWidth = square.xWidth; // The max width of the square will be the width of the square.
-    const maxHeight = square.yHeight; // The max height of the square will be the height of the square.
+    const maxWidth = square.width; // The max width of the square will be the width of the square.
+    const maxHeight = square.height; // The max height of the square will be the height of the square.
 
     // so we check if coordinates are within those boundaries and also positive number
     return (
@@ -145,17 +145,11 @@ export class HelperService {
     });
     if (rover.successTrip) {
       console.log(
-        'Resultado Final',
-        rover.successTrip,
-        rover.orientation,
-        rover.coordinates
+        `Resultado Final ${rover.successTrip} ${rover.orientation} (${rover.coordinates.xWidth},${rover.coordinates.yHeight})`
       );
     } else {
       console.log(
-        'Resultado Final',
-        rover.successTrip,
-        rover.orientation,
-        rover.coordinates
+        `Resultado Final ${rover.successTrip} ${rover.orientation} (${rover.coordinates.xWidth},${rover.coordinates.yHeight})`
       );
     }
   }
