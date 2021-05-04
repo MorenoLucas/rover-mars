@@ -1,4 +1,4 @@
 export interface Square {
-  width: number;
-  height: number;
+  xWidth: number;
+  yHeight: number;
 }
