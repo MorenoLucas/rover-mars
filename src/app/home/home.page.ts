@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HelperService } from '../services/helper.service';
+import { Commands } from '../interface/commands';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  constructor() {}
-
+  comandos: Commands;
+  constructor(private helper: HelperService) {}
 }
