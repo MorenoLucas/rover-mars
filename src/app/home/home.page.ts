@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HelperService } from '../services/helper.service';
 import { Commands } from '../interface/commands';
+import { Square } from '../interface/square';
 
 @Component({
   selector: 'app-home',
@@ -9,5 +10,10 @@ import { Commands } from '../interface/commands';
 })
 export class HomePage {
   comandos: Commands;
-  constructor(private helper: HelperService) {}
+  cuadrado: Square;
+
+  constructor(private helper: HelperService) {
+    this.cuadrado.width = 10;
+    this.cuadrado.height = 10;
+  }
 }
