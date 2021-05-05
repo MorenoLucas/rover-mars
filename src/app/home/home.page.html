@@ -3,12 +3,11 @@
     <ion-title> APP IONIC </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <div class="">
   <input type="text" name="width" [(ngModel)]="valueWidth" />
   <input type="text" [(ngModel)]="valueHeight" />
 </div>
-<div
-  class="square"
-  [style.width]="getWidth()"
-  [style.height]="getHeight()"
-></div>
+<div class="square" [style.width]="getWidth()" [style.height]="getHeight()">
+  <app-rover [orientation]="'S'"></app-rover>
+</div>

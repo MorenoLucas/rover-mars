@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HelperService } from '../services/helper.service';
 import { Commands, Coordinates } from '../interface/commands';
 import { Square } from '../interface/square';
@@ -15,6 +15,7 @@ export class HomePage {
   valueWidth: string;
   valueHeight: string;
 
+  @Output() orientation = new EventEmitter();
   constructor(private helper: HelperService) {
     this.cuadrado = {
       width: 10,
