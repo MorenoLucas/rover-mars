@@ -6,13 +6,11 @@ import { Square } from '../interface/square';
   providedIn: 'root',
 })
 export class HelperService {
-  // This method will check if the coordinates given are inside the square
-
+  // comprueba que este dentro del cuadrado y sea mayor de 0
   checkIfInsideSquare(square: Square, coordinates: Coordinates): boolean {
-    const maxWidth = square.width; // The max width of the square will be the width of the square.
-    const maxHeight = square.height; // The max height of the square will be the height of the square.
+    const maxWidth = square.width;
+    const maxHeight = square.height;
 
-    // so we check if coordinates are within those boundaries and also positive number
     return (
       coordinates.xWidth <= maxWidth &&
       coordinates.yHeight <= maxHeight &&
@@ -21,7 +19,7 @@ export class HelperService {
     );
   }
 
-  //// METHODS THAT HANDLE MOVEMENT OF THE ROVER ON THE SQUARE /////
+  //// las cordenadas nuevas del rover, devuelve las cordenadas de destino
 
   getNewCoordinateWhereIWantToGo(
     actualCoordinate: Coordinates,
@@ -56,19 +54,14 @@ export class HelperService {
     }
   }
 
-  // This method will return the actual orientation and the new direction after receiving an order
-
+  // orientacion de vehiculo
   changeOrientation(direction: string, orientation: string): string {
-    // we assume the rover can only change orientation when he receives either Left (L) or Right (R) Direction
-
-    // const arrayOrientations = ['N', 'E', 'S', 'W']
     if (direction === 'L' || direction === 'R') {
       switch (orientation) {
         case 'N': {
           if (direction === 'L') {
             return 'W';
           } else {
-            // can only be 'R'
             return 'E';
           }
         }
@@ -76,7 +69,6 @@ export class HelperService {
           if (direction === 'L') {
             return 'E';
           } else {
-            // can only be 'R'
             return 'W';
           }
         }
@@ -84,7 +76,6 @@ export class HelperService {
           if (direction === 'L') {
             return 'N';
           } else {
-            // can only be 'R'
             return 'S';
           }
         }
@@ -92,7 +83,6 @@ export class HelperService {
           if (direction === 'L') {
             return 'S';
           } else {
-            // can only be 'R'
             return 'N';
           }
         }
@@ -102,13 +92,12 @@ export class HelperService {
     }
   }
 
+  // juntamos los metodos, plantedo si se mueve de lado y avanza
   moveRover(
     rover: Commands,
     direction: 'L' | 'R' | 'A',
     square: Square
   ): Commands {
-    // I receive an order of type direction;
-    // 1. I change the orientation of the rover;
     if (direction === 'L' || direction === 'R') {
       rover.orientation = this.changeOrientation(
         direction,
@@ -118,15 +107,12 @@ export class HelperService {
 
       return rover;
     } else {
-      // I want to check first if is possible to go there;
-
       const targetCoordinates = this.getNewCoordinateWhereIWantToGo(
         rover.coordinates,
         rover.orientation
       );
 
       if (this.checkIfInsideSquare(square, targetCoordinates)) {
-        // is allowed to go so let's execute the method move;
         rover['coordinates'] = targetCoordinates;
 
         console.log('ROVER', rover);

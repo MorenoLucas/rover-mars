@@ -28,8 +28,8 @@ export class HomePage {
     };
 
     this.movimientos.push('A');
-    this.movimientos.push('R');
     this.movimientos.push('A');
+    this.movimientos.push('R');
     this.movimientos.push('A');
 
     this.helper.trip(this.movimientos, this.comandos, this.cuadrado);
