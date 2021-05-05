@@ -9,5 +9,10 @@
   <input type="text" [(ngModel)]="valueHeight" />
 </div>
 <div class="square" [style.width]="getWidth()" [style.height]="getHeight()">
-  <app-rover [orientation]="'S'"></app-rover>
+  <app-rover
+    class="rover"
+    [orientation]="'S'"
+    [style.left]="getLeft()"
+    [style.bottom]="getBottom()"
+  ></app-rover>
 </div>

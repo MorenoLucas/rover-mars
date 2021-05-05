@@ -16,6 +16,7 @@ export class HomePage {
   valueHeight: string;
 
   @Output() orientation = new EventEmitter();
+
   constructor(private helper: HelperService) {
     this.cuadrado = {
       width: 10,
@@ -25,8 +26,8 @@ export class HomePage {
       direction: 'A',
       orientation: 'N',
       coordinates: {
-        yHeight: 0,
-        xWidth: 0,
+        yHeight: 250,
+        xWidth: 250,
       },
     };
 
@@ -53,6 +54,23 @@ export class HomePage {
       return this.valueHeight + '.px';
     } else {
       console.log('tamaño mayor al deseado');
+    }
+  }
+  getLeft() {
+    const pxW = this.comandos.coordinates.xWidth;
+    if (pxW <= parseInt(this.valueWidth)) {
+      return this.comandos.coordinates.xWidth + '.px';
+    } else {
+      console.log('las coordenadas estan fuera del cuadrado');
+    }
+  }
+
+  getBottom() {
+    const pxH = this.comandos.coordinates.yHeight;
+    if (pxH <= parseInt(this.valueHeight)) {
+      return this.comandos.coordinates.yHeight + '.px';
+    } else {
+      console.log('fuerda del cuadrado');
     }
   }
 }
