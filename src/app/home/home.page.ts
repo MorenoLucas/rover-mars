@@ -12,6 +12,8 @@ export class HomePage {
   comandos: Commands;
   cuadrado: Square;
   movimientos = [];
+  valueWidth: string;
+  valueHeight: string;
 
   constructor(private helper: HelperService) {
     this.cuadrado = {
@@ -33,5 +35,23 @@ export class HomePage {
     this.movimientos.push('A');
 
     this.helper.trip(this.movimientos, this.comandos, this.cuadrado);
+  }
+
+  getWidth() {
+    console.log(this.valueWidth);
+    if (parseInt(this.valueWidth) >= 0 && parseInt(this.valueWidth) <= 999) {
+      this.cuadrado.width = parseInt(this.valueWidth);
+      return this.valueWidth + '.px';
+    } else {
+      console.log('tamaño mayor al deseado');
+    }
+  }
+  getHeight() {
+    if (parseInt(this.valueHeight) >= 0 && parseInt(this.valueHeight) <= 999) {
+      this.cuadrado.height = parseInt(this.valueHeight);
+      return this.valueHeight + '.px';
+    } else {
+      console.log('tamaño mayor al deseado');
+    }
   }
 }
