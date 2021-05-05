@@ -12,65 +12,58 @@ export class HomePage {
   comandos: Commands;
   cuadrado: Square;
   movimientos = [];
-  valueWidth: string;
-  valueHeight: string;
+  width: string;
+  height: string;
 
+  heightInitial;
+  widthInitial;
+  orientationInitial;
+  orders;
+  square: Square = {
+    width: 0,
+    height: 0,
+  };
   @Output() orientation = new EventEmitter();
 
-  constructor(private helper: HelperService) {
-    this.cuadrado = {
-      width: 10,
-      height: 10,
-    };
-    this.comandos = {
-      direction: 'A',
-      orientation: 'N',
-      coordinates: {
-        yHeight: 250,
-        xWidth: 250,
-      },
-    };
-
-    this.movimientos.push('A');
-    this.movimientos.push('A');
-    this.movimientos.push('R');
-    this.movimientos.push('A');
-
-    this.helper.trip(this.movimientos, this.comandos, this.cuadrado);
-  }
+  constructor(private helper: HelperService) {}
 
   getWidth() {
-    console.log(this.valueWidth);
-    if (parseInt(this.valueWidth) >= 0 && parseInt(this.valueWidth) <= 999) {
-      this.cuadrado.width = parseInt(this.valueWidth);
-      return this.valueWidth + '.px';
-    } else {
-      console.log('tamaño mayor al deseado');
+    if (this.width) {
+      this.square.width = parseInt(this.width);
+      const dimensionsRes = `${this.width}px`;
+      console.log('square', this.square);
+      return dimensionsRes;
     }
   }
   getHeight() {
-    if (parseInt(this.valueHeight) >= 0 && parseInt(this.valueHeight) <= 999) {
-      this.cuadrado.height = parseInt(this.valueHeight);
-      return this.valueHeight + '.px';
-    } else {
-      console.log('tamaño mayor al deseado');
-    }
-  }
-  getLeft() {
-    const pxW = this.comandos.coordinates.xWidth;
-    if (pxW <= parseInt(this.valueWidth)) {
-      return this.comandos.coordinates.xWidth + '.px';
-    } else {
-      console.log('las coordenadas estan fuera del cuadrado');
+    if (this.height) {
+      this.square.height = parseInt(this.height);
+      const dimensionsRes = `${this.height}px`;
+      console.log('square', this.square);
+
+      return dimensionsRes;
     }
   }
 
-  getBottom() {
-    const pxH = this.comandos.coordinates.yHeight;
-    if (pxH <= parseInt(this.valueHeight)) {
-      return this.comandos.coordinates.yHeight + '.px';
-    } else {
-      console.log('fuerda del cuadrado');
-    }
+  startTrip() {
+    const ordersArray = Array.from(this.orders.toUpperCase()) as (
+      | 'L'
+      | 'A'
+      | 'R'
+    )[];
+
+    this.helper.trip(
+      ordersArray,
+      {
+        successTrip: true,
+        orientation: this.orientationInitial.toUpperCase(),
+        coordinates: {
+          xWidth: parseInt(this.widthInitial),
+          yHeight: parseInt(this.heightInitial),
+        },
+        direction: ordersArray[0],
+      },
+      this.square
+    );
   }
 }
