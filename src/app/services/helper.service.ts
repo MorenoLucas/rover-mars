@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Commands, Coordinates } from '../interface/commands';
 import { Square } from '../interface/square';
 
@@ -6,6 +7,14 @@ import { Square } from '../interface/square';
   providedIn: 'root',
 })
 export class HelperService {
+  roverMovement = new BehaviorSubject({
+    direction: 'R',
+    coordinates: { xWidth: 11, yHeight: 11 },
+    orientation: 'S',
+    successTrip: true,
+  });
+  public rover$: Observable<Commands | any> = this.roverMovement.asObservable();
+
   // comprueba que este dentro del cuadrado y sea mayor de 0
   checkIfInsideSquare(square: Square, coordinates: Coordinates): boolean {
     const maxWidth = square.width;
@@ -126,17 +135,15 @@ export class HelperService {
   }
   // ejercicio
   trip(ordenes, rover: Commands, square: Square) {
-    ordenes.forEach((mov) => {
-      this.moveRover(rover, mov, square);
+    let roverUpdated: Commands = rover;
+    ordenes.forEach((mov, i) => {
+      setTimeout(() => {
+        if (rover.successTrip) {
+          roverUpdated = this.moveRover(rover, mov, square);
+          this.roverMovement.next(roverUpdated);
+        } else {
+        }
+      }, i * 1000);
     });
-    if (rover.successTrip) {
-      console.log(
-        `Resultado Final ${rover.successTrip} ${rover.orientation} (${rover.coordinates.xWidth},${rover.coordinates.yHeight})`
-      );
-    } else {
-      console.log(
-        `Resultado Final ${rover.successTrip} ${rover.orientation} (${rover.coordinates.xWidth},${rover.coordinates.yHeight})`
-      );
-    }
   }
 }

@@ -46,8 +46,8 @@
 <div class="square" [style.width]="getWidth()" [style.height]="getHeight()">
   <app-rover
     class="rover"
-    [orientation]="'N'"
-    [style.left]="'50px'"
-    [style.bottom]="'50px'"
+    [orientation]="getOrientation()"
+    [style.left]="getLeft()"
+    [style.bottom]="getBottom()"
   ></app-rover>
 </div>

@@ -10,7 +10,7 @@ import { Square } from '../interface/square';
 })
 export class HomePage {
   comandos: Commands;
-  cuadrado: Square;
+
   movimientos = [];
   width: string;
   height: string;
@@ -26,7 +26,9 @@ export class HomePage {
   @Output() orientation = new EventEmitter();
 
   constructor(private helper: HelperService) {}
-
+  ngOnInit() {
+    this.helper.rover$.subscribe((res) => {});
+  }
   getWidth() {
     if (this.width) {
       this.square.width = parseInt(this.width);
@@ -43,6 +45,16 @@ export class HomePage {
 
       return dimensionsRes;
     }
+  }
+  getOrientation() {
+    return this.orientationInitial;
+  }
+  getLeft() {
+    return this.widthInitial + '.px';
+  }
+
+  getBottom() {
+    return this.height + '.px';
   }
 
   startTrip() {
