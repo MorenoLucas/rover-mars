@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelpersService } from '../../service/helpers.service';
 @Component({
@@ -7,55 +7,73 @@ import { HelpersService } from '../../service/helpers.service';
   styleUrls: ['./trip.page.scss'],
 })
 export class TripPage implements OnInit {
-
   finished = false;
-  constructor( private router: Router, public helpers: HelpersService ) {
-   }
+  constructor(private router: Router, public helpers: HelpersService) {}
+
+  @HostListener('document:keydown', ['$event'])
+
+  // this function handles keyboard events
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.code == 'ArrowUp') {
+      this.helpers.arcadeTrip('A');
+    } else if (event.code == 'ArrowRight') {
+      this.helpers.arcadeTrip('R');
+    } else if (event.code == 'ArrowLeft') {
+      this.helpers.arcadeTrip('L');
+    } else {
+    }
+  }
 
   ngOnInit() {
-
     this.finished = false;
     this.helpers.stateTrip = 'ongoing';
-    
-    const checkWhenFinished = setInterval(()=>{
-      if(this.helpers.stateTrip !== 'ongoing'){
+
+    const checkWhenFinished = setInterval(() => {
+      if (this.helpers.stateTrip !== 'ongoing') {
         this.finished = true;
-        this.helpers.stateTrip === 'success' ? this.successTrip() : this.failedTrip();
-        
+        this.helpers.stateTrip === 'success'
+          ? this.successTrip()
+          : this.failedTrip();
+
         clearInterval(checkWhenFinished);
       }
-      
-    }, 1000)
+    }, 1000);
   }
 
-
-  navigateBack(){
-    this.router.navigateByUrl('home').then(()=>{
-
+  navigateBack() {
+    this.router.navigateByUrl('home').then(() => {
       // I reset the state of trip to preparing;
       this.helpers.stateTrip = 'preparing';
-    })
-    
+    });
   }
 
-  successTrip(){
-    this.helpers.presentToast('Congratulations for your successfull trip, please come back!', 'success', 5000);
-
+  successTrip() {
+    this.helpers.presentToast(
+      'Congratulations for your successfull trip, please come back!',
+      'success',
+      5000
+    );
   }
 
-  failedTrip(){
-    this.helpers.presentToast('You went off the limits of the square, the trip was unsuccessfull', 'danger', 5000);
-
+  failedTrip() {
+    this.helpers.presentToast(
+      'You went off the limits of the square, the trip was unsuccessfull',
+      'danger',
+      5000
+    );
   }
 
-  getWidth(){ 
+  getWidth() {
     // get width of square
-    return this.helpers.getSquare().width < 800 ?  `${this.helpers.getSquare().width}px` : '800px';
+    return this.helpers.getSquare().width < 800
+      ? `${this.helpers.getSquare().width}px`
+      : '800px';
   }
 
-  getHeight(){
+  getHeight() {
     // get height of square
-    return this.helpers.getSquare().height < 800 ?  `${this.helpers.getSquare().height}px` : '800px';
+    return this.helpers.getSquare().height < 800
+      ? `${this.helpers.getSquare().height}px`
+      : '800px';
   }
-
 }
