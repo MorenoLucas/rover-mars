@@ -1,7 +1,5 @@
 {
-  "name": "rover-mars",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "rover-mars-ionic",
+  "integrations": {},
   "type": "angular"
 }

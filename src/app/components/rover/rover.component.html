@@ -1,1 +1,4 @@
-<ion-icon [name]="this.flecha"></ion-icon>
+<ion-icon color="primary" name="{{ orientation | convertOrientationToArrow }}"> </ion-icon>
+<ion-chip [color]="success ? 'success' : 'danger'">
+    {{success ? 'TRUE' : 'FALSE'}} {{ orientation }}, ( {{ xWidth }}, {{ yHeight}} )
+</ion-chip>

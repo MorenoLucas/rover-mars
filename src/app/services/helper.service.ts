@@ -138,7 +138,7 @@ export class HelperService {
     let roverUpdated: Commands = rover;
     ordenes.forEach((mov, i) => {
       setTimeout(() => {
-        if (rover.successTrip) {
+        if (roverUpdated.successTrip) {
           roverUpdated = this.moveRover(rover, mov, square);
           this.roverMovement.next(roverUpdated);
         } else {
